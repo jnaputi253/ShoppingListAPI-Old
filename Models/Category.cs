@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using ShoppingListAPI.Models.Database;
 
 namespace ShoppingListAPI.Models
 {
@@ -9,7 +10,7 @@ namespace ShoppingListAPI.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
-        [BsonElement(nameof(Name))]
+        [BsonElement(CategorySchema.Name)]
         [BsonRepresentation(BsonType.String)]
         public string Name { get; set; }
     }
