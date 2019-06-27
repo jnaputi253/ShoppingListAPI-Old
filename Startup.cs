@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using ShoppingListAPI.Models.Configuration;
 
 namespace ShoppingListAPI
 {
@@ -18,6 +20,11 @@ namespace ShoppingListAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ShoppingListDatabaseConfiguration>(
+                Configuration.GetSection(nameof(ShoppingListDatabaseConfiguration)));
+            services.AddSingleton(serviceProvider =>
+                serviceProvider.GetRequiredService<IOptions<ShoppingListDatabaseConfiguration>>().Value);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
